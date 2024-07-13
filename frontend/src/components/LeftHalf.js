@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, Tabs, Tab } from '@mui/material';
 import axios from 'axios';
-import heroMapping from './heroMapping'; // Import the hero mapping
+import { heroNamesMapping, heroImagesMapping } from './heroMapping'; // Import both mappings
+import '../HeroStyles.css'; // Import your hero styles
 
 function LeftHalf() {
   const [bestTurboHeroes, setBestTurboHeroes] = useState([]);
@@ -143,26 +144,20 @@ function LeftHalf() {
                 width: '100%',
                 border: '1px dashed #333',
                 padding: '10px',
-                display: 'flex',  // Added to use flexbox for layout
-                alignItems: 'center', // Align items vertically
+                display: 'flex',
+                alignItems: 'center',
               }}
             >
               {/* Hero Image Box */}
-              <Box
-                sx={{
-                  width: '50px', // Adjust width as needed
-                  height: '50px', // Adjust height as needed
-                  marginRight: '10px', // Spacing between image and stats
-                  backgroundColor: '#ccc', // Placeholder background color
-                }}
-              >
-                {/* Add hero image or sprite here */}
-              </Box>
+              <div
+                className={`hero-image ${heroImagesMapping[hero.heroId]}`} // Dynamically assign hero class
+                style={{ transform: 'scale(1.2)' }} // Scale up the image by 20%
+              ></div>
 
               {/* Hero Stats */}
-              <Box>
+              <Box sx={{ marginLeft: '10px' }}> {/* Add margin to separate image and text */}
                 <Typography variant="body1">
-                  {index + 1}. Hero: {heroMapping[hero.heroId] || 'Unknown Hero'}
+                  {index + 1}. Hero: {heroNamesMapping[hero.heroId] || 'Unknown Hero'}
                 </Typography>
                 <Typography variant="body1">
                   Win Rate: {hero.winRate.toFixed(2)}%
@@ -195,26 +190,20 @@ function LeftHalf() {
                 width: '100%',
                 border: '1px dashed #333',
                 padding: '10px',
-                display: 'flex',  // Added to use flexbox for layout
-                alignItems: 'center', // Align items vertically
+                display: 'flex',
+                alignItems: 'center',
               }}
             >
               {/* Hero Image Box */}
-              <Box
-                sx={{
-                  width: '50px', // Adjust width as needed
-                  height: '50px', // Adjust height as needed
-                  marginRight: '10px', // Spacing between image and stats
-                  backgroundColor: '#ccc', // Placeholder background color
-                }}
-              >
-                {/* Add hero image or sprite here */}
-              </Box>
+              <div
+                className={`hero-image ${heroImagesMapping[hero.heroId]}`} // Dynamically assign hero class
+                style={{ transform: 'scale(1.2)' }} // Scale up the image by 20%
+              ></div>
 
               {/* Hero Stats */}
-              <Box>
+              <Box sx={{ marginLeft: '10px' }}> {/* Add margin to separate image and text */}
                 <Typography variant="body1">
-                  {index + 1}. Hero: {heroMapping[hero.heroId] || 'Unknown Hero'}
+                  {index + 1}. Hero: {heroNamesMapping[hero.heroId] || 'Unknown Hero'}
                 </Typography>
                 <Typography variant="body1">
                   Win Rate: {hero.winRate.toFixed(2)}%

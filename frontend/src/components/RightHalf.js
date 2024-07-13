@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, Tab, Tabs } from '@mui/material';
 import axios from 'axios';
-import heroMapping from './heroMapping'; // Import the hero mapping
+import { heroNamesMapping } from './heroMapping';
 import gameModeMapping from './gameModeMapping'; // Import the game mode mapping
+import { heroImagesMapping } from './heroMapping'; // Import hero images mapping
 
 function RightHalf() {
   const [matches, setMatches] = useState([]);
@@ -79,21 +80,32 @@ function RightHalf() {
               border: '1px dashed #333',
               marginBottom: '10px',
               padding: '10px',
+              display: 'flex', // Ensure items are displayed in a row
+              alignItems: 'center', // Center items vertically
             }}
           >
-            <Typography variant="body1">
-              <a href={`https://www.dotabuff.com/matches/${match.match_id}`} target="_blank" rel="noopener noreferrer">
-                Match ID: {match.match_id}
-              </a>
-            </Typography>
-            <Typography variant="body2">Player ID: {match.player_id}</Typography>
-            <Typography variant="body2">Hero: {heroMapping[match.hero_id] || 'Unknown Hero'}</Typography>
-            <Typography variant="body2">Win: {match.win ? 'Yes' : 'No'}</Typography>
-            <Typography variant="body2">GPM: {match.gpm}</Typography>
-            <Typography variant="body2">Kills: {match.kills}</Typography>
-            <Typography variant="body2">Deaths: {match.deaths}</Typography>
-            <Typography variant="body2">Assists: {match.assists}</Typography>
-            <Typography variant="body2">Game Mode: {gameModeMapping[match.game_mode] || 'Unknown Mode'}</Typography>
+            {/* Hero Image */}
+            <div
+              className={`hero-image ${heroImagesMapping[match.hero_id]}`} // Dynamically assign hero class
+              style={{ width: '32px', height: '32px', marginRight: '10px', transform: 'scale(1.2)' }} // Adjust size and scaling as needed
+            ></div>
+
+            {/* Match Details */}
+            <Box>
+              <Typography variant="body1">
+                <a href={`https://www.dotabuff.com/matches/${match.match_id}`} target="_blank" rel="noopener noreferrer">
+                  Match ID: {match.match_id}
+                </a>
+              </Typography>
+              <Typography variant="body2">Player ID: {match.player_id}</Typography>
+              <Typography variant="body2">Hero: {heroNamesMapping[match.hero_id] || 'Unknown Hero'}</Typography>
+              <Typography variant="body2">Win: {match.win ? 'Yes' : 'No'}</Typography>
+              <Typography variant="body2">GPM: {match.gpm}</Typography>
+              <Typography variant="body2">Kills: {match.kills}</Typography>
+              <Typography variant="body2">Deaths: {match.deaths}</Typography>
+              <Typography variant="body2">Assists: {match.assists}</Typography>
+              <Typography variant="body2">Game Mode: {gameModeMapping[match.game_mode] || 'Unknown Mode'}</Typography>
+            </Box>
           </Box>
         ))}
       </Box>

@@ -54,10 +54,11 @@ function TitleBox() {
       const interval = setInterval(() => {
         setIsTransitioning(true); // Enable transition effect for automatic change
         setTimeout(() => {
-          setCurrentHeroIndex(prevIndex => (prevIndex === heroIds.length - 1 ? 0 : prevIndex + 1));
+          const randomIndex = Math.floor(Math.random() * heroIds.length);
+          setCurrentHeroIndex(randomIndex);
           setIsTransitioning(false);
         }, 500); // Duration of the transition effect
-      }, 3800); // Change hero every 10 seconds
+      }, 3800); // Change hero every 3.8 seconds (adjusted from 10 seconds for demo purposes)
 
       return () => clearInterval(interval);
     }
@@ -132,6 +133,7 @@ function TitleBox() {
             }}
           ></Box>
         </a>
+
 
         {/* Hero Name Dropdown */}
         <Select

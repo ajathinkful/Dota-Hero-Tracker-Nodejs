@@ -12,7 +12,7 @@ function LeftHalf() {
   useEffect(() => {
     const fetchBestHeroes = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/matches');
+        const response = await axios.get('https://dota-hero-tracker-nodejs.onrender.com/matches');
         const matches = response.data;
 
         // Calculate stats for Turbo matches

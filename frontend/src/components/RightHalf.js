@@ -12,7 +12,7 @@ function RightHalf() {
   useEffect(() => {
     const fetchMatches = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/matches');
+        const response = await axios.get('https://dota-hero-tracker-nodejs.onrender.com/matches');
         const sortedMatches = response.data.sort((a, b) => b.match_id - a.match_id);
         setMatches(sortedMatches);
       } catch (error) {

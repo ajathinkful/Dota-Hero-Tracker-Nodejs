@@ -103,7 +103,7 @@
 }
 
 .hero-image.hero-juggernaut {
-  background-position: -224px -31px;
+  background-position: -224px -32px;
 }
 
 .hero-image.hero-kunkka {
@@ -496,4 +496,8 @@
 
 .hero-image.hero-dawnbreaker {
   background-position: -160px -288px;
+}
+
+.hero-image.hero-primal-beast {
+  background-position: -194px -290px;
 }

@@ -119,7 +119,8 @@ export const heroNamesMapping = {
   121: "Grimstroke",
   126: "Void Spirit",
   128: "Snapfire",
-  129: "Mars"
+  129: "Mars",
+  137: "Primal Beast"
 };
 
 export const heroImagesMapping = {
@@ -241,5 +242,6 @@ export const heroImagesMapping = {
   121: 'hero-grimstroke',
   126: 'hero-void-spirit',
   128: 'hero-snapfire',
-  129: 'hero-mars'
+  129: 'hero-mars',
+  137: "hero-primal-beast"
 };

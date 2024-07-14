@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, Tab, Tabs } from '@mui/material';
 import axios from 'axios';
-import { heroNamesMapping } from './heroMapping';
+import { heroNamesMapping, heroImagesMapping } from './heroMapping';
 import gameModeMapping from './gameModeMapping'; // Import the game mode mapping
-import { heroImagesMapping } from './heroMapping'; // Import hero images mapping
+
 
 function RightHalf() {
   const [matches, setMatches] = useState([]);

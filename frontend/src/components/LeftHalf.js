@@ -8,10 +8,13 @@ function LeftHalf() {
   const [bestTurboHeroes, setBestTurboHeroes] = useState([]);
   const [bestAllPickHeroes, setBestAllPickHeroes] = useState([]);
   const [selectedTab, setSelectedTab] = useState('turbo'); // State to track selected tab
+  const [isLoading, setIsLoading] = useState(true); // State to track loading status
 
   useEffect(() => {
     const fetchBestHeroes = async () => {
       try {
+        setIsLoading(true); // Start loading state
+
         const response = await axios.get('https://dota-hero-tracker-nodejs.onrender.com/matches');
         const matches = response.data;
 
@@ -32,6 +35,8 @@ function LeftHalf() {
         setBestAllPickHeroes(topAllPickHeroes);
       } catch (error) {
         console.error('Error fetching best heroes:', error);
+      } finally {
+        setIsLoading(false); // End loading state
       }
     };
 
@@ -130,97 +135,107 @@ function LeftHalf() {
         <Tab value="allPick" label="All Pick" />
       </Tabs>
 
-      {/* Display top heroes based on selected tab */}
-      {selectedTab === 'turbo' && bestTurboHeroes.length > 0 && (
-        <Box>
-          <Typography variant="h6" gutterBottom>
-            Best Turbo Heroes
-          </Typography>
-          {bestTurboHeroes.map((hero, index) => (
-            <Box
-              key={hero.heroId}
-              sx={{
-                marginBottom: '20px',
-                width: '100%',
-                border: '1px dashed #333',
-                padding: '10px',
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
-              {/* Hero Image Box */}
-              <div
-                className={`hero-image ${heroImagesMapping[hero.heroId]}`} // Dynamically assign hero class
-                style={{ transform: 'scale(1.2)' }} // Scale up the image by 20%
-              ></div>
+      {/* Conditional rendering based on isLoading */}
+      {isLoading ? (
+        <div className="loading-container">
+          <p>Fetching match data, please wait...</p>
+          <img src="/loading.gif" alt="Loading" className="custom-loading-gif" />
+        </div>
+      ) : (
+        <>
+          {/* Display top heroes based on selected tab */}
+          {selectedTab === 'turbo' && bestTurboHeroes.length > 0 && (
+            <Box>
+              <Typography variant="h6" gutterBottom>
+                Best Turbo Heroes
+              </Typography>
+              {bestTurboHeroes.map((hero, index) => (
+                <Box
+                  key={hero.heroId}
+                  sx={{
+                    marginBottom: '20px',
+                    width: '100%',
+                    border: '1px dashed #333',
+                    padding: '10px',
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                >
+                  {/* Hero Image Box */}
+                  <div
+                    className={`hero-image ${heroImagesMapping[hero.heroId]}`} // Dynamically assign hero class
+                    style={{ transform: 'scale(1.2)' }} // Scale up the image by 20%
+                  ></div>
 
-              {/* Hero Stats */}
-              <Box sx={{ marginLeft: '10px' }}> {/* Add margin to separate image and text */}
-                <Typography variant="body1">
-                  {index + 1}. Hero: {heroNamesMapping[hero.heroId] || 'Unknown Hero'}
-                </Typography>
-                <Typography variant="body1">
-                  Win Rate: {hero.winRate.toFixed(2)}%
-                </Typography>
-                <Typography variant="body1">
-                  Average GPM: {hero.averageGPM.toFixed(2)}
-                </Typography>
-                <Typography variant="body1">
-                  KDA Ratio: {hero.kdaRatio}
-                </Typography>
-                <Typography variant="body1">
-                  Total Matches: {hero.matchesCount}
-                </Typography>
-              </Box>
+                  {/* Hero Stats */}
+                  <Box sx={{ marginLeft: '10px' }}> {/* Add margin to separate image and text */}
+                    <Typography variant="body1">
+                      {index + 1}. Hero: {heroNamesMapping[hero.heroId] || 'Unknown Hero'}
+                    </Typography>
+                    <Typography variant="body1">
+                      Win Rate: {hero.winRate.toFixed(2)}%
+                    </Typography>
+                    <Typography variant="body1">
+                      Average GPM: {hero.averageGPM.toFixed(2)}
+                    </Typography>
+                    <Typography variant="body1">
+                      KDA Ratio: {hero.kdaRatio}
+                    </Typography>
+                    <Typography variant="body1">
+                      Total Matches: {hero.matchesCount}
+                    </Typography>
+                  </Box>
+                </Box>
+              ))}
             </Box>
-          ))}
-        </Box>
-      )}
+          )}
 
-      {selectedTab === 'allPick' && bestAllPickHeroes.length > 0 && (
-        <Box>
-          <Typography variant="h6" gutterBottom>
-            Best All Pick Heroes
-          </Typography>
-          {bestAllPickHeroes.map((hero, index) => (
-            <Box
-              key={hero.heroId}
-              sx={{
-                marginBottom: '20px',
-                width: '100%',
-                border: '1px dashed #333',
-                padding: '10px',
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
-              {/* Hero Image Box */}
-              <div
-                className={`hero-image ${heroImagesMapping[hero.heroId]}`} // Dynamically assign hero class
-                style={{ transform: 'scale(1.2)' }} // Scale up the image by 20%
-              ></div>
+          {selectedTab === 'allPick' && bestAllPickHeroes.length > 0 && (
+            <Box>
+              <Typography variant="h6" gutterBottom>
+                Best All Pick Heroes
+              </Typography>
+              {bestAllPickHeroes.map((hero, index) => (
+                <Box
+                  key={hero.heroId}
+                  sx={{
+                    marginBottom: '20px',
+                    width: '100%',
+                    border: '1px dashed #333',
+                    padding: '10px',
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                >
+                  {/* Hero Image Box */}
+                  <div
+                    className={`hero-image ${heroImagesMapping[hero.heroId]}`} // Dynamically assign hero class
+                    style={{ transform: 'scale(1.2)' }} // Scale up the image by 20%
+                  ></div>
 
-              {/* Hero Stats */}
-              <Box sx={{ marginLeft: '10px' }}> {/* Add margin to separate image and text */}
-                <Typography variant="body1">
-                  {index + 1}. Hero: {heroNamesMapping[hero.heroId] || 'Unknown Hero'}
-                </Typography>
-                <Typography variant="body1">
-                  Win Rate: {hero.winRate.toFixed(2)}%
-                </Typography>
-                <Typography variant="body1">
-                  Average GPM: {hero.averageGPM.toFixed(2)}
-                </Typography>
-                <Typography variant="body1">
-                  KDA Ratio: {hero.kdaRatio}
-                </Typography>
-                <Typography variant="body1">
-                  Total Matches: {hero.matchesCount}
-                </Typography>
-              </Box>
+                  {/* Hero Stats */}
+                  <Box sx={{ marginLeft: '10px' }}> {/* Add margin to separate image and text */}
+                    <Typography variant="body1">
+                      {index + 1}. Hero: {heroNamesMapping[hero.heroId] || 'Unknown Hero'}
+                    </Typography>
+                    <Typography variant="body1">
+                      Win Rate: {hero.winRate.toFixed(2)}%
+                    </Typography>
+                    <Typography variant="body1">
+                      Average GPM: {hero.averageGPM.toFixed(2)}
+                    </Typography>
+                    <Typography variant="body1">
+                      KDA Ratio: {hero.kdaRatio}
+                    </Typography>
+                    <Typography variant="body1">
+                      Total Matches: {hero.matchesCount}
+                    </Typography>
+                  </Box>
+                </Box>
+              ))}
             </Box>
-          ))}
-        </Box>
+          )}
+        </>
       )}
     </Box>
   );

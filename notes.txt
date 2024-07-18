@@ -1,0 +1,9 @@
+add loading screen for left and right half
+
+mobile version swipe to go left and right half
+
+worst heroes?
+
+change chrome icon and tab name
+
+button to get latest matches from endpoint

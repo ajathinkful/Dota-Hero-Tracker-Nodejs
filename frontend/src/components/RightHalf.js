@@ -47,8 +47,8 @@ function RightHalf() {
     <Box
       sx={{
         backgroundColor: '#cce6ff',
-        width: '50%',
-        border: '1px solid black',
+        width: '75%',
+        border: '0px solid black',
         padding: '20px',
         display: 'flex',
         flexDirection: 'column',

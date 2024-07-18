@@ -91,8 +91,11 @@ function LeftHalf() {
       };
     });
 
+    // Filter out heroes with fewer than 3 matches
+    const filteredHeroes = heroesWithStats.filter(hero => hero.matchesCount >= 3);
+
     // Sort heroes by win rate (descending), then by average GPM (descending), then by KDA ratio (descending)
-    heroesWithStats.sort((a, b) => {
+    filteredHeroes.sort((a, b) => {
       if (a.winRate !== b.winRate) {
         return b.winRate - a.winRate;
       }
@@ -103,7 +106,7 @@ function LeftHalf() {
     });
 
     // Select the top 3 heroes
-    return heroesWithStats.slice(0, 3);
+    return filteredHeroes.slice(0, 3);
   };
 
   // Function to handle tab change

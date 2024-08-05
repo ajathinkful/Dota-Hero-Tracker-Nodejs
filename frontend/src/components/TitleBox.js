@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Box, Typography, IconButton, Select, MenuItem } from '@mui/material';
-import { NavigateBefore, NavigateNext, Pause, PlayArrow } from '@mui/icons-material'; // Import icons for arrows and pause/play
+import { Box, Typography, IconButton, Select, MenuItem, Button, Snackbar, Alert } from '@mui/material';
+import { NavigateBefore, NavigateNext, Pause, PlayArrow } from '@mui/icons-material';
 import '../HeroStyles.css'; // Import hero image CSS styles
+import axios from 'axios'; // Import axios for fetching data
 
 const heroNames = [
   'Abaddon', 'Alchemist', 'Ancient Apparition', 'Anti-Mage', 'Arc Warden', 'Axe', 'Bane', 'Batrider',
@@ -30,6 +31,8 @@ function TitleBox() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to track dropdown open/close
+  const [snackbarOpen, setSnackbarOpen] = useState(false); // State to control snackbar visibility
+  const [snackbarMessage, setSnackbarMessage] = useState(''); // State to control snackbar message
 
   const heroId = heroIds[currentHeroIndex]; // Current hero id/name based on index
 
@@ -86,6 +89,26 @@ function TitleBox() {
     setIsDropdownOpen(false);
   };
 
+  const fetchLatestMatchData = async () => {
+    try {
+      const response = await axios.get('https://dota-hero-tracker-nodejs.onrender.com/fetch-and-store-matches');
+      console.log(response.data.message);
+      setSnackbarMessage(response.data.message);
+      setSnackbarOpen(true);
+      setTimeout(() => {
+        window.location.reload(); // Reload the page after 2 seconds
+      }, 2000);
+    } catch (error) {
+      console.error('Error fetching and storing matches:', error);
+      setSnackbarMessage('Error fetching and storing matches');
+      setSnackbarOpen(true);
+    }
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+
   return (
     <Box
       sx={{
@@ -100,7 +123,7 @@ function TitleBox() {
     >
       {/* Title */}
       <Typography variant="h4" gutterBottom style={{ marginTop: '-20px' }}>
-        Dota Game Tracker
+        Dota Hero Tracker
       </Typography>
 
       {/* Spacer */}
@@ -133,7 +156,6 @@ function TitleBox() {
             }}
           ></Box>
         </a>
-
 
         {/* Hero Name Dropdown */}
         <Select
@@ -168,6 +190,27 @@ function TitleBox() {
           <NavigateNext />
         </IconButton>
       </Box>
+
+      {/* Fetch Latest Match Data Button */}
+      <Button
+        variant="contained"
+        color="primary"
+        sx={{ marginTop: '20px' }}
+        onClick={fetchLatestMatchData}
+      >
+        Get Latest Match Data
+      </Button>
+
+      {/* Snackbar for notifications */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert onClose={handleSnackbarClose} severity={snackbarMessage.includes('Error') ? 'error' : 'success'}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

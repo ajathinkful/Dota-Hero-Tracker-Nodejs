@@ -33,6 +33,8 @@ function TitleBox() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to track dropdown open/close
   const [snackbarOpen, setSnackbarOpen] = useState(false); // State to control snackbar visibility
   const [snackbarMessage, setSnackbarMessage] = useState(''); // State to control snackbar message
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false); // State to control button disable
+
 
   const heroId = heroIds[currentHeroIndex]; // Current hero id/name based on index
 
@@ -90,18 +92,32 @@ function TitleBox() {
   };
 
   const fetchLatestMatchData = async () => {
+    if (isButtonDisabled) return; // Prevent action if button is disabled
+
     try {
+      setIsButtonDisabled(true); // Disable the button
       const response = await axios.get('https://dota-hero-tracker-nodejs.onrender.com/fetch-and-store-matches');
       console.log(response.data.message);
       setSnackbarMessage(response.data.message);
       setSnackbarOpen(true);
+
       setTimeout(() => {
         window.location.reload(); // Reload the page after 2 seconds
       }, 2000);
+
+      // Re-enable the button after 30 seconds
+      setTimeout(() => {
+        setIsButtonDisabled(false);
+      }, 30000); // 30 seconds
     } catch (error) {
       console.error('Error fetching and storing matches:', error);
       setSnackbarMessage('Error fetching and storing matches');
       setSnackbarOpen(true);
+
+      // Re-enable the button after 30 seconds
+      setTimeout(() => {
+        setIsButtonDisabled(false);
+      }, 30000); // 30 seconds
     }
   };
 
@@ -197,6 +213,7 @@ function TitleBox() {
         color="primary"
         sx={{ marginTop: '20px' }}
         onClick={fetchLatestMatchData}
+        disabled={isButtonDisabled}
       >
         Get Latest Match Data
       </Button>

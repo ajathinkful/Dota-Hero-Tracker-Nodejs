@@ -122,7 +122,7 @@ function TitleBox() {
       }}
     >
       {/* Title */}
-      <Typography variant="h4" gutterBottom style={{ marginTop: '-20px' }}>
+      <Typography variant="h4" gutterBottom style={{ marginTop: '-20px', textAlign: 'center', }}>
         Dota Hero Tracker
       </Typography>
 

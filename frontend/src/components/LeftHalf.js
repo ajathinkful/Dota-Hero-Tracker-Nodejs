@@ -122,11 +122,7 @@ function LeftHalf() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-<<<<<<< HEAD
         border: '0px solid black',
-=======
-        border: '1px solid black',
->>>>>>> a456031f12d0cf475574acfd18f6da815b4e34f4
         padding: '20px',
       }}
     >

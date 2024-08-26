@@ -120,12 +120,8 @@ export const heroNamesMapping = {
   126: "Void Spirit",
   128: "Snapfire",
   129: "Mars",
-<<<<<<< HEAD
   137: "Primal Beast",
   131: "Ringmaster"
-=======
-  137: "Primal Beast"
->>>>>>> a456031f12d0cf475574acfd18f6da815b4e34f4
 };
 
 export const heroImagesMapping = {
@@ -248,10 +244,6 @@ export const heroImagesMapping = {
   126: 'hero-void-spirit',
   128: 'hero-snapfire',
   129: 'hero-mars',
-<<<<<<< HEAD
   137: "hero-primal-beast",
   131: 'hero-ringmaster'
-=======
-  137: "hero-primal-beast"
->>>>>>> a456031f12d0cf475574acfd18f6da815b4e34f4
 };

@@ -97,21 +97,9 @@ app.get('/matches', async (req, res) => {
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
-  fetchAndStoreMatches(); // Initial fetch on startup
-
-  // Set interval to run fetchAndStoreMatches every 5 minutes (300000 ms)
-  setInterval(() => {
-    const currentHour = new Date().getHours(); // Get the current hour (0–23)
-
-    // Only fetch between 10 a.m. and 11 p.m.
-    if (currentHour >= 10 && currentHour < 23) {
-      fetchAndStoreMatches();
-    } else {
-      console.log('Skipping fetch: Outside active hours (10 a.m. to 11 p.m.)');
-    }
-  }, 300000); // 5-minute interval
+  fetchAndStoreMatches();
+  setInterval(fetchAndStoreMatches, 10800000); 
 });
-
 
 app.get('/ping', (req, res) => {
   res.send('Server is alive');

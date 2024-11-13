@@ -98,5 +98,5 @@ app.get('/matches', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
   fetchAndStoreMatches();
-  setInterval(fetchAndStoreMatches, 10800000); //3hr interval
+  setInterval(fetchAndStoreMatches, 720000); //3hr interval
 });
